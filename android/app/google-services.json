@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "531303575985",
+    "project_id": "gsg-sooq",
+    "storage_bucket": "gsg-sooq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531303575985:android:25c9289dcb9ed15b020d90",
+        "android_client_info": {
+          "package_name": "com.example.gsg_mashatel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531303575985-pja4dpj2rs4i8rn0a7cug55v1tn7hnfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8dH1M8vl6qmImrcjspmzEV7dM6vmD32s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531303575985-pja4dpj2rs4i8rn0a7cug55v1tn7hnfn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
