@@ -1,16 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gsg_mashatel/backend/mashatel_provider.dart';
 import 'package:gsg_mashatel/pages/login_page.dart';
 import 'package:gsg_mashatel/pages/main_auth.dart';
 import 'package:gsg_mashatel/pages/registerationPage.dart';
+import 'package:gsg_mashatel/pages/splach.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(GetMaterialApp(
-      home: MaterialApp(
-    home: MyApp(),
-  )));
+  runApp(ChangeNotifierProvider<MashatelProvider>(
+    create: (context) {
+      return MashatelProvider();
+    },
+    child: GetMaterialApp(
+        home: MaterialApp(
+      home: MyApp(),
+    )),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +46,7 @@ class MyApp extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return LoginPage();
+          return SplachScreen();
         }
 
         // Otherwise, show something whilst waiting for initialization to complete

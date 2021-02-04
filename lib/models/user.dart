@@ -3,6 +3,7 @@ import 'dart:io';
 enum userType { customer, mershant }
 
 class AppUser {
+  String userId;
   String companyName;
   String userName;
   String email;
@@ -20,6 +21,7 @@ class AppUser {
       this.userName,
       this.mobileNumber,
       this.password,
+      this.userId,
       this.type});
   factory AppUser.newUser(Map map) {
     bool isMershant = map['isMershant'] ?? false;
@@ -30,6 +32,7 @@ class AppUser {
     }
   }
   AppUser.mershantUser(Map map) {
+    this.userId = map['userId'];
     this.companyActivity = map['companyActivity'];
     this.userName = map['userName'];
     this.email = map['email'];
@@ -40,6 +43,7 @@ class AppUser {
     this.type = userType.mershant;
   }
   AppUser.customerUser(Map map) {
+    this.userId = map['userId'];
     this.userName = map['userName'];
     this.email = map['email'];
     this.password = map['password'] ?? '';

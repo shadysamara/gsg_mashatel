@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:gsg_mashatel/backend/mashatel_provider.dart';
 import 'package:gsg_mashatel/backend/server.dart';
 import 'package:gsg_mashatel/models/user.dart';
 import 'package:gsg_mashatel/utilities/helpers.dart';
 import 'package:gsg_mashatel/widgets/customTextField.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatelessWidget {
   userType type;
@@ -65,7 +68,6 @@ class RegistrationPage extends StatelessWidget {
               'password': this.password,
               'mobileNumber': this.mobileNumber,
               'compnayName': this.companyName,
-              'logo': this.logo
             })
           : AppUser.customerUser({
               'userName': this.userName,
@@ -143,17 +145,33 @@ class RegistrationPage extends StatelessWidget {
                         )
                       : Container(),
                   this.type == userType.mershant
-                      ? GestureDetector(
-                          onTap: () async {
-                            PickedFile pickedFile = await ImagePicker()
-                                .getImage(source: ImageSource.gallery);
-                            saveLogo(File(pickedFile.path));
+                      ? Selector<MashatelProvider, File>(
+                          builder: (context, value, child) {
+                            return GestureDetector(
+                              onTap: () async {
+                                PickedFile pickedFile = await ImagePicker()
+                                    .getImage(source: ImageSource.gallery);
+                                File file = File(pickedFile.path);
+                                Provider.of<MashatelProvider>(context,
+                                        listen: false)
+                                    .setFile(file);
+                              },
+                              child: Container(
+                                color: Colors.grey[300],
+                                height: 200,
+                                width: 200,
+                                child: value != null
+                                    ? Image.file(
+                                        value,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Icon(Icons.add),
+                              ),
+                            );
                           },
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            child: Icon(Icons.add),
-                          ),
+                          selector: (x, y) {
+                            return y.file;
+                          },
                         )
                       : Container()
                 ],
