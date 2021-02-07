@@ -26,38 +26,52 @@ class homePage extends StatelessWidget {
       ),
       body: Selector<MashatelProvider, List<Market>>(
         builder: (context, value, child) {
-          return ListView.builder(
-            itemCount: value.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () async {
-                  await getAllMarketsProductsFromFirebase(
-                      value[index].marketId);
-                  Get.to(ProductsPage());
-                },
-                child: Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 100,
-                        child: Image.network(
-                          value[index].logoUrl,
-                          fit: BoxFit.cover,
+          return value.isEmpty
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        Provider.of<MashatelProvider>(context, listen: false)
+                            .selectedMarket = value[index];
+                        await getAllMarketsProductsFromFirebase(
+                            value[index].marketId);
+                        Get.to(ProductsPage());
+                      },
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 100,
+                              width: 100,
+                              child: Image.network(
+                                value[index].logoUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(value[index].userName),
+                                Text(value[index].email),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Column(
-                        children: [
-                          Text(value[index].userName),
-                          Text(value[index].email),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+                    );
+                  },
+                );
         },
         selector: (x, y) {
           return y.markets;

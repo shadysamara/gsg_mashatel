@@ -135,9 +135,21 @@ getAllMarketsProductsFromFirebase(String marketId) async {
       .doc(marketId)
       .collection('MarketProduct')
       .get();
+
   List<Product> products = querySnapshot.docs.map((e) {
-    return Product.fromMap(e.data());
+    Map map = e.data();
+    map['productId'] = e.id;
+    return Product.fromMap(map);
   }).toList();
   Provider.of<MashatelProvider>(Get.context, listen: false)
       .setProducts(products);
+}
+
+reportProduct(String productId, String userId, String reportReason) async {
+  await firestore
+      .collection('Reports')
+      .doc(productId)
+      .collection('Users')
+      .doc(userId)
+      .set({'reportReason': reportReason});
 }

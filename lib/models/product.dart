@@ -6,6 +6,7 @@ class Product {
   bool isMessage;
   String marketId;
   String imageUrl;
+  String productId;
   Product(this.description, this.imageUrl, this.isCall, this.isMessage,
       this.marketId, this.name, this.price);
   Product.fromMap(Map map) {
@@ -16,5 +17,6 @@ class Product {
     this.isMessage = map['allowMessaging'];
     this.imageUrl = map['imageUrl'];
     this.marketId = map['marketId'];
+    this.productId = map['productId'];
   }
 }

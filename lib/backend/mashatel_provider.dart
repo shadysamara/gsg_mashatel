@@ -6,6 +6,7 @@ import 'package:gsg_mashatel/models/product.dart';
 import 'package:gsg_mashatel/models/user.dart';
 
 class MashatelProvider extends ChangeNotifier {
+  Market selectedMarket;
   AppUser appUser;
   setAppUser(AppUser appUser) {
     this.appUser = appUser;
@@ -40,6 +41,12 @@ class MashatelProvider extends ChangeNotifier {
 
   setProducts(List<Product> value) {
     this.products = value;
+    notifyListeners();
+  }
+
+  int productBottomIndex = 0;
+  changeIndex(int value) {
+    this.productBottomIndex = value;
     notifyListeners();
   }
 }
